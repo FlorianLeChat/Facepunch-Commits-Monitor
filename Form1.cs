@@ -22,7 +22,7 @@ namespace FacepunchCommitsMonitor
 		public Form1()
 		{
 			InitializeComponent();
-			FormClosing += Form1_FormClosing;
+			FormClosing += Form1_Close;
 		}
 
 		/// <summary>
@@ -87,7 +87,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Executes the uninstallation system when the program closes.
 		/// </summary>
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		private void Form1_Close(object sender, FormClosingEventArgs e)
 		{
 			if (cleanupOnShutDown)
 				ToastNotificationManagerCompat.Uninstall();

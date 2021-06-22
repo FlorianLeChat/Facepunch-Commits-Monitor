@@ -72,8 +72,8 @@ namespace FacepunchCommitsMonitor
 
 				.Show(toast =>
 				{
-					// Automatic deletion after 12 hours.
-					toast.ExpirationTime = DateTime.Now.AddHours(12);
+					// Automatic deletion after 6 hours.
+					toast.ExpirationTime = DateTime.Now.AddHours(6);
 				});
 		}
 
@@ -124,7 +124,7 @@ namespace FacepunchCommitsMonitor
 			cleanupOnShutDown = checkBox1.Checked;
 
 			if (cleanupOnShutDown)
-				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 12 hours" +
+				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 6 hours" +
 					" after their creation to free up space in the control center.");
 		}
 

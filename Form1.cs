@@ -8,6 +8,7 @@ namespace FacepunchCommitsMonitor
 {
 	public partial class Form1 : Form
 	{
+		static decimal intervalTime = 300;
 		static bool cleanupOnShutDown = false;
 		static Dictionary<string, bool> repositories = new()
 		{
@@ -133,6 +134,14 @@ namespace FacepunchCommitsMonitor
 			if (cleanupOnShutDown)
 				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 12 hours" +
 					" after their creation to free up space in the control center.");
+		}
+
+		/// <summary>
+		/// Changes the time interval between each check.
+		/// </summary>
+		private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
+		{
+			intervalTime = numericUpDown1.Value;
 		}
 	}
 }

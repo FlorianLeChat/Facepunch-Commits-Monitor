@@ -61,7 +61,11 @@ namespace FacepunchCommitsMonitor
 				.AddAppLogoOverride(new Uri(url), ToastGenericAppLogoCrop.Circle)
 				.AddAudio(new Uri("ms-winsoundevent:Notification.Mail"))
 
-				.Show();
+				.Show(toast =>
+				{
+					// Automatic deletion after 12 hours.
+					toast.ExpirationTime = DateTime.Now.AddHours(12);
+				});
 		}
 
 		/// <summary>

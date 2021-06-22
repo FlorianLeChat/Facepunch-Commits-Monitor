@@ -5,12 +5,12 @@ namespace FacepunchCommitsMonitor
 {
 	public class Commit
 	{
-		public string id;
+		public string identifier;
 		public string category;
 		public string repository;
 		public string branch;
 		public string author;
-		public string url;
+		public string avatar;
 	}
 
 	static class Program

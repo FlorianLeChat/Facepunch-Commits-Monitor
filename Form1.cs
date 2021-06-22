@@ -64,10 +64,10 @@ namespace FacepunchCommitsMonitor
 
 				.AddButton(new ToastButton()
 					.SetContent("Click here to reach the commit link")
-					.AddArgument("url", "https://commits.facepunch.com/" + data.id)
+					.AddArgument("url", "https://commits.facepunch.com/" + data.identifier)
 				)
 
-				.AddAppLogoOverride(new Uri(data.url), ToastGenericAppLogoCrop.Circle)
+				.AddAppLogoOverride(new Uri(data.avatar), ToastGenericAppLogoCrop.Circle)
 				.AddAudio(new Uri("ms-winsoundevent:Notification.Mail"))
 
 				.Show(toast =>

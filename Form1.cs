@@ -128,7 +128,7 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void CheckBox1_CheckedChanged(object sender, EventArgs e)
 		{
-			cleanupOnShutDown = !cleanupOnShutDown;
+			cleanupOnShutDown = checkBox1.Checked;
 
 			if (cleanupOnShutDown)
 				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 12 hours" +

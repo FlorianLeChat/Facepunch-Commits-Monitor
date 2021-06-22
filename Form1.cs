@@ -9,8 +9,8 @@ namespace FacepunchCommitsMonitor
 	public partial class Form1 : Form
 	{
 		static bool cleanupOnShutDown = false;
-		static public decimal intervalTime = 300;
-		static Dictionary<string, bool> repositories = new()
+		static public double intervalTime = 180000;
+		static readonly Dictionary<string, bool> repositories = new()
 		{
 			["Garry's Mod"] = false,
 			["Rust"] = false,

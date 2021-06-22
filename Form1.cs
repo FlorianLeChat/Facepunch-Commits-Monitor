@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace FacepunchCommitsMonitor
@@ -8,6 +9,12 @@ namespace FacepunchCommitsMonitor
 	public partial class Form1 : Form
 	{
 		static bool cleanupOnShutDown = false;
+		static Dictionary<string, bool> repositories = new()
+		{
+			["Garry's Mod"] = false,
+			["Rust"] = false,
+			["Sandbox"] = false
+		};
 
 		/// <summary>
 		/// Initialize the form and all its components.
@@ -92,6 +99,28 @@ namespace FacepunchCommitsMonitor
 		private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			OpenURL("https://github.com/FlorianLeChat");
+		}
+
+		/// <summary>
+		/// Enable or disable repositories tracking.
+		/// </summary>
+		private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			var selectedID = checkedListBox1.SelectedIndex;
+			var selectedState = checkedListBox1.GetItemChecked(selectedID);
+
+			switch (selectedID)
+			{
+				case 0:
+					repositories["Garry's Mod"] = selectedState;
+					break;
+				case 1:
+					repositories["Rust"] = selectedState;
+					break;
+				case 2:
+					repositories["Sandbox"] = selectedState;
+					break;
+			}
 		}
 
 		/// <summary>

@@ -147,12 +147,12 @@ namespace FacepunchCommitsMonitor
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(170, 161);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            3600,
+            300,
             0,
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             0});
@@ -161,7 +161,7 @@ namespace FacepunchCommitsMonitor
             this.numericUpDown1.TabIndex = 8;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.Value = new decimal(new int[] {
-            300,
+            180,
             0,
             0,
             0});
@@ -188,7 +188,6 @@ namespace FacepunchCommitsMonitor
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Facepunch Commits Monitor";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

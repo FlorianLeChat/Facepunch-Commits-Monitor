@@ -23,7 +23,6 @@ namespace FacepunchCommitsMonitor
 	static class Program
 	{
 		static uint firstIdentifier;
-		static bool isFirstTime = true;
 		static List<string> readedIDs = new();
 		static public Timer actionTimer = new();
 		static readonly HttpClient client = new();
@@ -32,14 +31,17 @@ namespace FacepunchCommitsMonitor
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static async Task Main()
 		{
+			// Note: we run the check once to store the identifier of the first commit.
+			await CheckForNewCommits(true);
+
 			// Initializes the timer continually checking the new commits.
-			actionTimer.Elapsed += async (sender, e) => await CheckForNewCommits(sender, e);
+			actionTimer.Elapsed += async (sender, e) => await CheckForNewCommits(false);
 			actionTimer.Interval = Form1.intervalTime * 1000;
 			actionTimer.Enabled = true;
 
-			// Default code to create the form.
+			// Default generated code to create the form.
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -47,9 +49,26 @@ namespace FacepunchCommitsMonitor
 		}
 
 		/// <summary>
+		/// Gives the name of the category associated with the commit repository.
+		/// </summary>
+		static string SelectGameCategory(string repository)
+		{
+			if (repository.Contains("Garrys"))
+				return "Garry's Mod";
+
+			if (repository.Contains("rust"))
+				return "Rust";
+
+			if (repository.Contains("sbox"))
+				return "Sandbox";
+
+			return "N/A";
+		}
+
+		/// <summary>
 		/// Periodically check the Facepunch API for new commits.
 		/// </summary>
-		static private async Task CheckForNewCommits(object sender, ElapsedEventArgs e)
+		static async Task CheckForNewCommits(bool isFirstTime)
 		{
 			var request = await client.GetAsync("https://commits.facepunch.com/?format=json");
 
@@ -65,28 +84,32 @@ namespace FacepunchCommitsMonitor
 						var stringIdentifier = item.GetProperty("id").ToString();
 						var numberIdentifier = uint.Parse(stringIdentifier);
 
+						// Store the first start identifier (as stated above).
 						if (isFirstTime)
 						{
 							firstIdentifier = numberIdentifier;
-							isFirstTime = false;
 							break;
 						}
 
+						// Checks if the identifier has not already been "read".
 						if (!readedIDs.Contains(stringIdentifier) && numberIdentifier > firstIdentifier)
 						{
-							var data = new Commit
+							var userData = item.GetProperty("user");
+							var gameRepository = item.GetProperty("repo").ToString();
+
+							var commitData = new Commit
 							{
-								category = "Garry's Mod",
+								category = SelectGameCategory(gameRepository),
 								identifier = stringIdentifier,
-								repository = item.GetProperty("repo").ToString(),
+								repository = gameRepository,
 								branch = item.GetProperty("branch").ToString(),
-								author = "Rubat",
-								avatar = "https://files.facepunch.com/s/b8ec968c721a.jpg"
+								author = userData.GetProperty("name").ToString(),
+								avatar = userData.GetProperty("avatar").ToString()
 							};
 
 							readedIDs.Add(stringIdentifier);
 
-							Form1.CreateToastNotification(data);
+							Form1.CreateToastNotification(commitData);
 						}
 					}
 				}

@@ -133,7 +133,9 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
 		{
-			intervalTime = numericUpDown1.Value;
+			intervalTime = (double)(numericUpDown1.Value) * 1000;
+
+			Program.actionTimer.Interval = intervalTime;
 		}
 	}
 }

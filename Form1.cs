@@ -44,7 +44,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Create a Toast notification (Windows) with custom settings.
 		/// </summary>
-		static public void CreateToastNotification(string id, string category, string repository, string branch, string author, string url)
+		static public void CreateToastNotification(Commit data)
 		{
 			// Supports the opening of the commit link when the button is pressed.
 			ToastNotificationManagerCompat.OnActivated += toastArgs =>
@@ -57,17 +57,17 @@ namespace FacepunchCommitsMonitor
 			new ToastContentBuilder()
 				.AddArgument("conversationId", 9813)
 
-				.AddHeader("6289", category, "")
-				.AddText("Repository: " + repository)
-				.AddText("Branch: " + branch)
-				.AddAttributionText("By " + author)
+				.AddHeader("6289", data.category, "")
+				.AddText("Repository: " + data.repository)
+				.AddText("Branch: " + data.branch)
+				.AddAttributionText("By " + data.author)
 
 				.AddButton(new ToastButton()
 					.SetContent("Click here to reach the commit link")
-					.AddArgument("url", "https://commits.facepunch.com/" + id)
+					.AddArgument("url", "https://commits.facepunch.com/" + data.id)
 				)
 
-				.AddAppLogoOverride(new Uri(url), ToastGenericAppLogoCrop.Circle)
+				.AddAppLogoOverride(new Uri(data.url), ToastGenericAppLogoCrop.Circle)
 				.AddAudio(new Uri("ms-winsoundevent:Notification.Mail"))
 
 				.Show(toast =>

@@ -3,6 +3,16 @@ using System.Windows.Forms;
 
 namespace FacepunchCommitsMonitor
 {
+	public class Commit
+	{
+		public string id;
+		public string category;
+		public string repository;
+		public string branch;
+		public string author;
+		public string url;
+	}
+
 	static class Program
 	{
 		/// <summary>

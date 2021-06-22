@@ -8,8 +8,8 @@ namespace FacepunchCommitsMonitor
 {
 	public partial class Form1 : Form
 	{
-		static decimal intervalTime = 300;
 		static bool cleanupOnShutDown = false;
+		static public decimal intervalTime = 300;
 		static Dictionary<string, bool> repositories = new()
 		{
 			["Garry's Mod"] = false,

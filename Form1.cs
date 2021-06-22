@@ -70,6 +70,14 @@ namespace FacepunchCommitsMonitor
 		}
 
 		/// <summary>
+		/// Test the notification system.
+		/// </summary>
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			CreateToastNotification("385699", "Garry's Mod", "rust_reboot", "main", "Rubat", "https://files.facepunch.com/s/43d4ef6a46eb.jpg");
+		}
+
+		/// <summary>
 		/// Executes the uninstallation system when the program closes.
 		/// </summary>
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)

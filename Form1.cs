@@ -15,6 +15,7 @@ namespace FacepunchCommitsMonitor
 		public Form1()
 		{
 			InitializeComponent();
+			FormClosing += Form1_FormClosing;
 		}
 
 		/// <summary>
@@ -69,11 +70,32 @@ namespace FacepunchCommitsMonitor
 		}
 
 		/// <summary>
+		/// Executes the uninstallation system when the program closes.
+		/// </summary>
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (cleanupOnShutDown)
+				ToastNotificationManagerCompat.Uninstall();
+		}
+
+		/// <summary>
 		/// Opens the GitHub page of the program author.
 		/// </summary>
 		private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			OpenURL("https://github.com/FlorianLeChat");
+		}
+
+		/// <summary>
+		/// Changes the state of the program's uninstallation system when it is closed.
+		/// </summary>
+		private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			cleanupOnShutDown = !cleanupOnShutDown;
+
+			if (cleanupOnShutDown)
+				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 12 hours" +
+					" after their creation to free up space in the control center.");
 		}
 	}
 }

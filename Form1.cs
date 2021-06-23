@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -85,17 +86,30 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Updates UI elements with values from the internal logic.
 		/// </summary>
+		private void SafeInvoke(Control element, Action callback)
+		{
+			if (element.InvokeRequired)
+			{
+				_ = element.BeginInvoke((Action)delegate { SafeInvoke(element, callback); });
+			}
+			else
+			{
+				if (element.IsDisposed)
+					return;
+
+				callback();
+			}
+		}
+
 		private void ActionTimer_Tick(object sender, EventArgs e)
 		{
 			// Remaining time text
-			_ = label6.Invoke(new Action(() =>
-			{
-				var interval = TimeSpan.FromMilliseconds(IntervalTime);
-				var runDelta = DateTime.Now - Program.StartTime;
-				var remainingTime = Math.Floor(Math.Max((interval - runDelta).TotalSeconds, 0));
+			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Program.StartTime)).TotalSeconds);
 
-				label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString());
-			}));
+			SafeInvoke(label6, new Action(() => label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString())));
+
+			// Remaining time progress bar
+			SafeInvoke(progressBar1, new Action(() => progressBar1.Value = (int)(100 * remainingTime / (IntervalTime / 1000))));
 		}
 
 		private void Form1_Load(object sender, EventArgs e)

@@ -106,10 +106,16 @@ namespace FacepunchCommitsMonitor
 			// Remaining time text
 			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Program.StartTime)).TotalSeconds);
 
-			SafeInvoke(label6, new Action(() => label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString())));
+			SafeInvoke(label6, new Action(() =>
+			{
+				label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString());
+			}));
 
 			// Remaining time progress bar
-			SafeInvoke(progressBar1, new Action(() => progressBar1.Value = (int)(100 * remainingTime / (IntervalTime / 1000))));
+			SafeInvoke(progressBar1, new Action(() =>
+			{
+				progressBar1.Value = Math.Clamp((int)(100 * remainingTime / (IntervalTime / 1000)), 0, 100);
+			}));
 		}
 
 		private void Form1_Load(object sender, EventArgs e)

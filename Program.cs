@@ -53,16 +53,17 @@ namespace FacepunchCommitsMonitor
 
 		/// <summary>
 		/// Gives the name of the category associated with the commit repository.
+		/// This also serves as a check to see if the game needs to be monitored.
 		/// </summary>
 		private static string SelectGameCategory(string repository)
 		{
-			if (repository.Contains("Garrys"))
+			if (repository.Contains("Garrys") && Form1.Repositories["Garry's Mod"])
 				return "Garry's Mod";
 
-			if (repository.Contains("rust"))
+			if (repository.Contains("rust") && Form1.Repositories["Rust"])
 				return "Rust";
 
-			if (repository.Contains("sbox"))
+			if (repository.Contains("sbox") && Form1.Repositories["Sandbox"])
 				return "Sandbox";
 
 			return "N/A";
@@ -93,15 +94,21 @@ namespace FacepunchCommitsMonitor
 							break;
 						}
 
+						// Check if the commit is one of the games to monitor.
+						var gameRepository = item.GetProperty("repo").ToString();
+						var gameCategory = SelectGameCategory(gameRepository);
+
+						if (gameCategory == "N/A")
+							continue;
+
 						// Checks if the identifier has not already been "read".
 						if (!readedIDs.Contains(stringIdentifier) && numberIdentifier > firstIdentifier)
 						{
 							var userData = item.GetProperty("user");
-							var gameRepository = item.GetProperty("repo").ToString();
 
 							Form1.CreateToastNotification(new Commit
 							{
-								category = SelectGameCategory(gameRepository),
+								category = gameCategory,
 								identifier = stringIdentifier,
 								repository = gameRepository,
 								branch = item.GetProperty("branch").ToString(),

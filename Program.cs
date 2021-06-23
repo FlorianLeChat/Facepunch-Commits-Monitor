@@ -1,5 +1,4 @@
 using System;
-using System.Timers;
 using System.Net.Http;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -20,26 +19,30 @@ namespace FacepunchCommitsMonitor
 		public string avatar;
 	}
 
-	static class Program
+	internal class Program
 	{
-		static uint firstIdentifier;
-		static List<string> readedIDs = new();
-		static public Timer actionTimer = new();
-		static readonly HttpClient client = new();
+		public static Timer CheckTimer { get; set; } = new();
+
+		private static uint firstIdentifier;
+		private static readonly HttpClient client = new();
+		private static readonly List<string> readedIDs = new();
 
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static async Task Main()
+		private static async Task Main()
 		{
 			// Note: we run the check once to store the identifier of the first commit.
 			await CheckForNewCommits(true);
 
 			// Initializes the timer continually checking the new commits.
-			actionTimer.Elapsed += async (sender, e) => await CheckForNewCommits(false);
-			actionTimer.Interval = Form1.intervalTime * 1000;
-			actionTimer.Enabled = true;
+			CheckTimer.Elapsed += async (sender, e) =>
+			{
+				await CheckForNewCommits(false);
+			};
+			CheckTimer.Interval = Form1.IntervalTime * 1000;
+			CheckTimer.Enabled = true;
 
 			// Default generated code to create the form.
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
@@ -51,7 +54,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Gives the name of the category associated with the commit repository.
 		/// </summary>
-		static string SelectGameCategory(string repository)
+		private static string SelectGameCategory(string repository)
 		{
 			if (repository.Contains("Garrys"))
 				return "Garry's Mod";
@@ -68,16 +71,15 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Periodically check the Facepunch API for new commits.
 		/// </summary>
-		static async Task CheckForNewCommits(bool isFirstTime)
+		private static async Task CheckForNewCommits(bool isFirstTime)
 		{
 			var request = await client.GetAsync("https://commits.facepunch.com/?format=json");
 
 			if (request.IsSuccessStatusCode && request.Content != null)
 			{
 				var document = await JsonDocument.ParseAsync(await request.Content.ReadAsStreamAsync());
-				var details = document.RootElement;
 
-				if (details.TryGetProperty("results", out var items))
+				if (document.RootElement.TryGetProperty("results", out var items))
 				{
 					foreach (var item in items.EnumerateArray())
 					{
@@ -97,7 +99,7 @@ namespace FacepunchCommitsMonitor
 							var userData = item.GetProperty("user");
 							var gameRepository = item.GetProperty("repo").ToString();
 
-							var commitData = new Commit
+							Form1.CreateToastNotification(new Commit
 							{
 								category = SelectGameCategory(gameRepository),
 								identifier = stringIdentifier,
@@ -105,11 +107,9 @@ namespace FacepunchCommitsMonitor
 								branch = item.GetProperty("branch").ToString(),
 								author = userData.GetProperty("name").ToString(),
 								avatar = userData.GetProperty("avatar").ToString()
-							};
+							});
 
 							readedIDs.Add(stringIdentifier);
-
-							Form1.CreateToastNotification(commitData);
 						}
 					}
 				}

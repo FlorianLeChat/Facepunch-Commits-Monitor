@@ -21,6 +21,7 @@ namespace FacepunchCommitsMonitor
 
 	internal class Program
 	{
+		public static DateTime StartTime { get; set; }
 		public static Timer CheckTimer { get; set; } = new();
 
 		private static uint firstIdentifier;
@@ -74,6 +75,10 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private static async Task CheckForNewCommits(bool isFirstTime)
 		{
+			// Let's record the execution start time of the check code
+			StartTime = DateTime.Now;
+
+			// Then, we continue to run the check.
 			var request = await client.GetAsync("https://commits.facepunch.com/?format=json");
 
 			if (request.IsSuccessStatusCode && request.Content != null)

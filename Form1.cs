@@ -2,7 +2,10 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Uwp.Notifications;
+
+using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor
 {
@@ -17,6 +20,7 @@ namespace FacepunchCommitsMonitor
 		};
 
 		private bool cleanupOnShutDown;
+		private readonly Timer interfaceUpdateTimer = new();
 
 		/// <summary>
 		/// Initialize the form and all its components.
@@ -38,7 +42,7 @@ namespace FacepunchCommitsMonitor
 			}
 			catch (Exception error)
 			{
-				MessageBox.Show(error.Message);
+				_ = MessageBox.Show(error.Message);
 			}
 		}
 
@@ -76,6 +80,29 @@ namespace FacepunchCommitsMonitor
 					// Automatic deletion after 6 hours.
 					toast.ExpirationTime = DateTime.Now.AddHours(6);
 				});
+		}
+
+		/// <summary>
+		/// Updates UI elements with values from the internal logic.
+		/// </summary>
+		private void ActionTimer_Tick(object sender, EventArgs e)
+		{
+			// Remaining time text
+			_ = label6.Invoke(new Action(() =>
+			{
+				var interval = TimeSpan.FromMilliseconds(IntervalTime);
+				var runDelta = DateTime.Now - Program.StartTime;
+				var remainingTime = Math.Floor(Math.Max((interval - runDelta).TotalSeconds, 0));
+
+				label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString());
+			}));
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			interfaceUpdateTimer.Elapsed += ActionTimer_Tick;
+			interfaceUpdateTimer.Interval = 100;
+			interfaceUpdateTimer.Enabled = true;
 		}
 
 		/// <summary>
@@ -138,6 +165,7 @@ namespace FacepunchCommitsMonitor
 		{
 			IntervalTime = (double)numericUpDown1.Value * 1000;
 
+			Program.StartTime = DateTime.Now;
 			Program.CheckTimer.Interval = IntervalTime;
 		}
 	}

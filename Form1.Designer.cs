@@ -108,11 +108,11 @@ namespace FacepunchCommitsMonitor
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(120, 246);
+            this.label6.Location = new System.Drawing.Point(12, 246);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(150, 15);
+            this.label6.Size = new System.Drawing.Size(176, 15);
             this.label6.TabIndex = 10;
-            this.label6.Text = "Time left before next check";
+            this.label6.Text = "Time left before the next check: 0 second(s).";
             // 
             // linkLabel1
             // 
@@ -152,7 +152,7 @@ namespace FacepunchCommitsMonitor
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -188,6 +188,7 @@ namespace FacepunchCommitsMonitor
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Facepunch Commits Monitor";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

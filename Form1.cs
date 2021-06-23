@@ -8,9 +8,10 @@ namespace FacepunchCommitsMonitor
 {
 	public partial class Form1 : Form
 	{
-		static bool cleanupOnShutDown = false;
-		static public double intervalTime = 180000;
-		static readonly Dictionary<string, bool> repositories = new()
+		public static double IntervalTime { get; set; } = 180000;
+
+		private bool cleanupOnShutDown;
+		private readonly Dictionary<string, bool> repositories = new()
 		{
 			["Garry's Mod"] = false,
 			["Rust"] = false,
@@ -29,11 +30,11 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Opens a URL in the system default browser.
 		/// </summary>
-		static private void OpenURL(string url)
+		private static void OpenURL(string url)
 		{
 			try
 			{
-				Process.Start("explorer.exe", url);
+				_ = Process.Start("explorer.exe", url);
 			}
 			catch (Exception error)
 			{
@@ -44,7 +45,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Create a Toast notification (Windows) with custom settings.
 		/// </summary>
-		static public void CreateToastNotification(Commit data)
+		public static void CreateToastNotification(Commit data)
 		{
 			// Supports the opening of the commit link when the button is pressed.
 			ToastNotificationManagerCompat.OnActivated += toastArgs =>
@@ -113,6 +114,8 @@ namespace FacepunchCommitsMonitor
 				case 2:
 					repositories["Sandbox"] = selectedState;
 					break;
+				default:
+					break;
 			}
 		}
 
@@ -124,7 +127,7 @@ namespace FacepunchCommitsMonitor
 			cleanupOnShutDown = checkBox1.Checked;
 
 			if (cleanupOnShutDown)
-				MessageBox.Show("Note: When the program is running, notifications are automatically deleted 6 hours" +
+				_ = MessageBox.Show("Note: When the program is running, notifications are automatically deleted 6 hours" +
 					" after their creation to free up space in the control center.");
 		}
 
@@ -133,9 +136,9 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
 		{
-			intervalTime = (double)(numericUpDown1.Value) * 1000;
+			IntervalTime = (double)numericUpDown1.Value * 1000;
 
-			Program.actionTimer.Interval = intervalTime;
+			Program.CheckTimer.Interval = IntervalTime;
 		}
 	}
 }

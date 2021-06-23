@@ -9,14 +9,14 @@ namespace FacepunchCommitsMonitor
 	public partial class Form1 : Form
 	{
 		public static double IntervalTime { get; set; } = 180000;
-
-		private bool cleanupOnShutDown;
-		private readonly Dictionary<string, bool> repositories = new()
+		public static Dictionary<string, bool> Repositories { get; set; } = new()
 		{
 			["Garry's Mod"] = false,
 			["Rust"] = false,
 			["Sandbox"] = false
 		};
+
+		private bool cleanupOnShutDown;
 
 		/// <summary>
 		/// Initialize the form and all its components.
@@ -106,13 +106,13 @@ namespace FacepunchCommitsMonitor
 			switch (selectedID)
 			{
 				case 0:
-					repositories["Garry's Mod"] = selectedState;
+					Repositories["Garry's Mod"] = selectedState;
 					break;
 				case 1:
-					repositories["Rust"] = selectedState;
+					Repositories["Rust"] = selectedState;
 					break;
 				case 2:
-					repositories["Sandbox"] = selectedState;
+					Repositories["Sandbox"] = selectedState;
 					break;
 				default:
 					break;

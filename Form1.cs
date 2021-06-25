@@ -155,8 +155,17 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void Form1_Close(object sender, FormClosingEventArgs e)
 		{
+			// Firstly, the notifications and data associated to the program.
 			if (cleanupOnShutDown)
 				ToastNotificationManagerCompat.Uninstall();
+
+			// Then, all saved avatars.
+			var files = Directory.GetFiles("images");
+
+			foreach (var file in files)
+			{
+				File.Delete(file);
+			}
 		}
 
 		/// <summary>

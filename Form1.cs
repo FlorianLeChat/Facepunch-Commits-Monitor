@@ -144,21 +144,20 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Enable or disable repositories tracking.
 		/// </summary>
-		private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+		private void CheckedListBox1_ItemCheck(object sender, ItemCheckEventArgs args)
 		{
-			var selectedID = checkedListBox1.SelectedIndex;
-			var selectedState = checkedListBox1.GetItemChecked(selectedID);
+			var state = args.NewValue == CheckState.Checked;
 
-			switch (selectedID)
+			switch (args.Index)
 			{
 				case 0:
-					Repositories["Garry's Mod"] = selectedState;
+					Repositories["Garry's Mod"] = state;
 					break;
 				case 1:
-					Repositories["Rust"] = selectedState;
+					Repositories["Rust"] = state;
 					break;
 				case 2:
-					Repositories["Sandbox"] = selectedState;
+					Repositories["Sandbox"] = state;
 					break;
 				default:
 					break;

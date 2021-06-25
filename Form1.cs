@@ -108,7 +108,7 @@ namespace FacepunchCommitsMonitor
 
 			SafeInvoke(label6, new Action(() =>
 			{
-				label6.Text = Regex.Replace(label6.Text, "[0-9]+", remainingTime.ToString());
+				label6.Text = Regex.Replace(label6.Text, "[0-9]+", Math.Max(remainingTime, 0).ToString());
 			}));
 
 			// Remaining time progress bar

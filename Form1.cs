@@ -159,12 +159,15 @@ namespace FacepunchCommitsMonitor
 			if (cleanupOnShutDown)
 				ToastNotificationManagerCompat.Uninstall();
 
-			// Then, all saved avatars.
-			var files = Directory.GetFiles("images");
-
-			foreach (var file in files)
+			// Then, all saved avatars (if the save folder exists).
+			if (Directory.Exists("images"))
 			{
-				File.Delete(file);
+				var files = Directory.GetFiles("images");
+
+				foreach (var file in files)
+				{
+					File.Delete(file);
+				}
 			}
 		}
 

@@ -64,7 +64,7 @@ namespace FacepunchCommitsMonitor
 		public static void CreateToastNotification(Commit data)
 		{
 			new ToastContentBuilder()
-				.AddHeader("1", data.category, "")
+				.AddHeader(data.category, data.category, "")
 				.AddText("Repository: " + data.repository)
 				.AddText("Branch: " + data.branch)
 				.AddAttributionText("By " + data.author)

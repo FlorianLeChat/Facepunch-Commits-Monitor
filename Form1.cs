@@ -63,9 +63,8 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		public static void CreateToastNotification(Commit data)
 		{
-			// Builds the notification with the filled parameters.
 			new ToastContentBuilder()
-				.AddHeader("6289", data.category, "")
+				.AddHeader("1", data.category, "")
 				.AddText("Repository: " + data.repository)
 				.AddText("Branch: " + data.branch)
 				.AddAttributionText("By " + data.author)
@@ -96,10 +95,8 @@ namespace FacepunchCommitsMonitor
 			}
 			else
 			{
-				if (element.IsDisposed)
-					return;
-
-				callback();
+				if (!element.IsDisposed)
+					callback();
 			}
 		}
 

@@ -30,6 +30,17 @@ namespace FacepunchCommitsMonitor
 		{
 			InitializeComponent();
 			FormClosing += Form1_Close;
+
+			// Supports the opening of the commit link when the button is pressed.
+			ToastNotificationManagerCompat.OnActivated += toastArgs =>
+			{
+				var args = ToastArguments.Parse(toastArgs.Argument);
+
+				if (args.Contains("url"))
+				{
+					OpenURL(args["url"]);
+				}
+			};
 		}
 
 		/// <summary>
@@ -52,17 +63,6 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		public static void CreateToastNotification(Commit data)
 		{
-			// Supports the opening of the commit link when the button is pressed.
-			ToastNotificationManagerCompat.OnActivated += toastArgs =>
-			{
-				var args = ToastArguments.Parse(toastArgs.Argument);
-
-				if (args.Contains("url"))
-				{
-					OpenURL(args["url"]);
-				}
-			};
-
 			// Builds the notification with the filled parameters.
 			new ToastContentBuilder()
 				.AddHeader("6289", data.category, "")

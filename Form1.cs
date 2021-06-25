@@ -61,8 +61,6 @@ namespace FacepunchCommitsMonitor
 
 			// Builds the notification with the filled parameters.
 			new ToastContentBuilder()
-				.AddArgument("conversationId", 9813)
-
 				.AddHeader("6289", data.category, "")
 				.AddText("Repository: " + data.repository)
 				.AddText("Branch: " + data.branch)

@@ -56,7 +56,11 @@ namespace FacepunchCommitsMonitor
 			ToastNotificationManagerCompat.OnActivated += toastArgs =>
 			{
 				var args = ToastArguments.Parse(toastArgs.Argument);
-				OpenURL(args["url"]);
+
+				if (args.Contains("url"))
+				{
+					OpenURL(args["url"]);
+				}
 			};
 
 			// Builds the notification with the filled parameters.

@@ -42,7 +42,7 @@ namespace FacepunchCommitsMonitor
 			{
 				await CheckForNewCommits(false);
 			};
-			CheckTimer.Interval = Form1.IntervalTime * 1000;
+			CheckTimer.Interval = Form1.IntervalTime;
 			CheckTimer.Enabled = true;
 
 			// Default generated code to create the form.

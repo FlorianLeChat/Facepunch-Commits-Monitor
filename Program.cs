@@ -111,7 +111,7 @@ namespace FacepunchCommitsMonitor
 						{
 							var userData = item.GetProperty("user");
 
-							Form1.CreateToastNotification(new Commit
+							await Form1.CreateToastNotification(new Commit
 							{
 								category = gameCategory,
 								identifier = stringIdentifier,

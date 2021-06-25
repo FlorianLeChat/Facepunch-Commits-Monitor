@@ -1,7 +1,9 @@
 using System;
-using System.Threading;
+using System.IO;
+using System.Net.Http;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Uwp.Notifications;
@@ -21,7 +23,11 @@ namespace FacepunchCommitsMonitor
 		};
 
 		private bool cleanupOnShutDown;
+		private static readonly HttpClient client = new();
 		private readonly Timer interfaceUpdateTimer = new();
+
+		private const string directory = "images";
+		private const string fallbackAvatar = "https://files.facepunch.com/garry/f549bfc2-2a49-4eb8-a701-3efd7ae046ac.png";
 
 		/// <summary>
 		/// Initialize the form and all its components.
@@ -59,10 +65,30 @@ namespace FacepunchCommitsMonitor
 		}
 
 		/// <summary>
+		/// Download images from the Internet to save them in the software folder.
+		/// There is an easier way, but Microsoft seems to restrict some of its features for UWP applications.
+		/// </summary>
+		private static async Task DownloadImage(string fileName, Uri uri)
+		{
+			// We check if the file already exists to avoid re-downloading it.
+			if (File.Exists(directory + "/" + fileName + ".jpg"))
+				return;
+
+			// Otherwise, we download it normally.
+			var path = Path.Combine(directory, $"{fileName}.jpg");
+
+			_ = Directory.CreateDirectory(directory);
+
+			await File.WriteAllBytesAsync(path, await client.GetByteArrayAsync(uri));
+		}
+
+		/// <summary>
 		/// Create a Toast notification (Windows) with custom settings.
 		/// </summary>
-		public static void CreateToastNotification(Commit data)
+		public static async Task CreateToastNotification(Commit data)
 		{
+			await DownloadImage(data.author, new Uri(string.IsNullOrWhiteSpace(data.avatar) ? fallbackAvatar : data.avatar));
+
 			new ToastContentBuilder()
 				.AddHeader(data.category, data.category, "")
 				.AddText("Repository: " + data.repository)
@@ -74,7 +100,7 @@ namespace FacepunchCommitsMonitor
 					.AddArgument("url", "https://commits.facepunch.com/" + data.identifier)
 				)
 
-				.AddAppLogoOverride(new Uri(data.avatar), ToastGenericAppLogoCrop.Circle)
+				.AddAppLogoOverride(new Uri(Directory.GetCurrentDirectory() + "/images/" + data.author + ".jpg"), ToastGenericAppLogoCrop.Circle)
 				.AddAudio(new Uri("ms-winsoundevent:Notification.Mail"))
 
 				.Show(toast =>

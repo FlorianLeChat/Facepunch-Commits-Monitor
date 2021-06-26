@@ -151,6 +151,26 @@ namespace FacepunchCommitsMonitor
 		}
 
 		/// <summary>
+		/// Handles the minimization of the application when the interface has faded into the background.
+		/// </summary>
+		private void Form1_Resize(object sender, EventArgs e)
+		{
+			if (WindowState == FormWindowState.Minimized)
+			{
+				Hide();
+				notifyIcon1.Visible = true;
+				notifyIcon1.ShowBalloonTip(1000);
+			}
+		}
+
+		private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			Show();
+			WindowState = FormWindowState.Normal;
+			notifyIcon1.Visible = false;
+		}
+
+		/// <summary>
 		/// Executes the uninstallation system when the program closes.
 		/// </summary>
 		private void Form1_Close(object sender, FormClosingEventArgs e)

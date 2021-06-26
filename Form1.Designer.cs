@@ -28,6 +28,7 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@ namespace FacepunchCommitsMonitor
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,10 +57,10 @@ namespace FacepunchCommitsMonitor
             this.checkedListBox1.Size = new System.Drawing.Size(365, 58);
             this.checkedListBox1.TabIndex = 0;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBox1_ItemCheck);
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
@@ -110,7 +112,7 @@ namespace FacepunchCommitsMonitor
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 246);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(176, 15);
+            this.label6.Size = new System.Drawing.Size(239, 15);
             this.label6.TabIndex = 10;
             this.label6.Text = "Time left before the next check: 0 second(s).";
             // 
@@ -135,10 +137,10 @@ namespace FacepunchCommitsMonitor
             this.checkBox1.Text = "Delete all notifications from the application when you close it.";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-			// 
-			// progressBar1
-			// 
-			this.progressBar1.Location = new System.Drawing.Point(15, 218);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(15, 218);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(365, 23);
             this.progressBar1.TabIndex = 7;
@@ -167,6 +169,15 @@ namespace FacepunchCommitsMonitor
             0});
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.NumericUpDown1_ValueChanged);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipText = "Your application has been automatically placed in the Taskbar and continues to wo" +
+    "rk. Double-click on the icon to bring up the interface.";
+            this.notifyIcon1.BalloonTipTitle = "Application minimized";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseDoubleClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -189,6 +200,7 @@ namespace FacepunchCommitsMonitor
             this.Name = "Form1";
             this.Text = "Facepunch Commits Monitor";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -208,5 +220,6 @@ namespace FacepunchCommitsMonitor
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.NumericUpDown numericUpDown1;
+		private System.Windows.Forms.NotifyIcon notifyIcon1;
 	}
 }

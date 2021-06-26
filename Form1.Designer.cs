@@ -175,7 +175,7 @@ namespace FacepunchCommitsMonitor
     "rk. Double-click on the icon to bring up the interface.";
             this.notifyIcon1.BalloonTipTitle = "Application minimized";
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "Facepunch Commits Monitor";
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseDoubleClick);
             // 
             // Form1

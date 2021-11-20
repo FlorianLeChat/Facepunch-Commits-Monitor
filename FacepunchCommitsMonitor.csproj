@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework> <!-- Windows 10 version 1903 (May 2019 update) -->
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework> <!-- Windows 10 version 2004 (May 2020 Update) -->
 	<PlatformTarget>x64</PlatformTarget>
 	<UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>logo.ico</ApplicationIcon>

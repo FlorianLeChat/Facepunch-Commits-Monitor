@@ -1,4 +1,4 @@
-# Facepunch Commits Monitor
+# 📊 Facepunch Commits Monitor
 
 After the release of my very first **[real](https://github.com/FlorianLeChat/SteamCollectionDownloadSizeCalculator)** application in C#, I decided once again to convert one of my old Lua scripts made for Garry's Mod into an application usable outside this environment.
 

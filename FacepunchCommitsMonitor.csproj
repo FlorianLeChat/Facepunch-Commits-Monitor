@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<!-- https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/desktop-to-uwp-enhance -->
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework> <!-- Windows 10 version 2004 (May 2020 Update) -->
+		<TargetFramework>net6.0-windows10.0.22000.0</TargetFramework> <!-- Windows 11 -->
+		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion> <!-- Windows 10 version 2004 (May 2020 Update) -->
 		<PublishSingleFile>true</PublishSingleFile>
 		<PlatformTarget>x64</PlatformTarget>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -15,5 +15,4 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
 	</ItemGroup>
-
 </Project>

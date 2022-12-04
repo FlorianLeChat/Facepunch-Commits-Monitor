@@ -23,6 +23,12 @@ namespace FacepunchCommitsMonitor
 		private const string fallbackAvatar = "https://files.facepunch.com/garry/f549bfc2-2a49-4eb8-a701-3efd7ae046ac.png";
 
 		/// <summary>
+		/// A regex which matches the numbers "0" to "9" atomically at least once.
+		/// </summary>
+		[GeneratedRegex("[0-9]+")]
+		private static partial Regex FindNumbers();
+
+		/// <summary>
 		/// Initialize the form and all its components.
 		/// </summary>
 		public Form()
@@ -122,11 +128,11 @@ namespace FacepunchCommitsMonitor
 		private void ActionTimer_Tick(object sender, EventArgs e)
 		{
 			// Remaining time text
-			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Program.StartTime)).TotalSeconds);
+			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Monitor.StartTime)).TotalSeconds);
 
 			SafeInvoke(label6, new Action(() =>
 			{
-				label6.Text = Regex.Replace(label6.Text, "[0-9]+", Math.Max(remainingTime, 0).ToString());
+				label6.Text = FindNumbers().Replace(label6.Text, Math.Max(remainingTime, 0).ToString());
 			}));
 
 			// Remaining time progress bar
@@ -234,8 +240,8 @@ namespace FacepunchCommitsMonitor
 		{
 			IntervalTime = (double)numericUpDown1.Value * 1000;
 
-			Program.StartTime = DateTime.Now;
-			Program.CheckTimer.Interval = IntervalTime;
+			Monitor.StartTime = DateTime.Now;
+			Monitor.CheckTimer.Interval = IntervalTime;
 		}
 	}
 }

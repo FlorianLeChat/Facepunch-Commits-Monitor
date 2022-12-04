@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacepunchCommitsMonitor", "src/FacepunchCommitsMonitor.csproj", "{D4E06CA7-DF8D-4833-BD8A-072C0771D8C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacepunchCommitsMonitor", "src\FacepunchCommitsMonitor.csproj", "{D4E06CA7-DF8D-4833-BD8A-072C0771D8C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacepunchCommitsMonitorTests", "tests\FacepunchCommitsMonitorTests.csproj", "{A71B1881-7607-400C-A0F7-EB3C0D31DB63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D4E06CA7-DF8D-4833-BD8A-072C0771D8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E06CA7-DF8D-4833-BD8A-072C0771D8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E06CA7-DF8D-4833-BD8A-072C0771D8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A71B1881-7607-400C-A0F7-EB3C0D31DB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71B1881-7607-400C-A0F7-EB3C0D31DB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71B1881-7607-400C-A0F7-EB3C0D31DB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71B1881-7607-400C-A0F7-EB3C0D31DB63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

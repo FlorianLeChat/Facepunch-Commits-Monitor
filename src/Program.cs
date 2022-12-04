@@ -35,7 +35,7 @@ namespace FacepunchCommitsMonitor
 		}
 	}
 
-	internal class Program
+	public class Monitor
 	{
 		public static DateTime StartTime { get; set; }
 		public static Timer CheckTimer { get; set; } = new();
@@ -72,7 +72,7 @@ namespace FacepunchCommitsMonitor
 		/// Gives the name of the category associated with the commit repository.
 		/// This also serves as a check to see if the game needs to be monitored.
 		/// </summary>
-		private static string SelectGameCategory(string repository)
+		public static string SelectGameCategory(string repository)
 		{
 			if (repository.Contains("Garrys") && Form.Repositories["Garry's Mod"])
 				return "Garry's Mod";
@@ -81,7 +81,7 @@ namespace FacepunchCommitsMonitor
 				return "Rust";
 
 			if (repository.Contains("sbox") && Form.Repositories["Sandbox"])
-				return "Sandbox";
+				return "S&Box";
 
 			return "N/A";
 		}

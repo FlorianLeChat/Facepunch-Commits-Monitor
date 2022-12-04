@@ -1,6 +1,6 @@
 namespace FacepunchCommitsMonitor
 {
-	partial class Form1
+	partial class Form
 	{
 		/// <summary>
 		///  Required designer variable.
@@ -29,7 +29,7 @@ namespace FacepunchCommitsMonitor
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();

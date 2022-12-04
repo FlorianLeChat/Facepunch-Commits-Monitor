@@ -12,7 +12,7 @@ using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor
 {
-	public partial class Form1 : Form
+	public partial class Form : System.Windows.Forms.Form
 	{
 		public static double IntervalTime { get; set; } = 180000;
 		public static Dictionary<string, bool> Repositories { get; set; } = new()
@@ -32,7 +32,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Initialize the form and all its components.
 		/// </summary>
-		public Form1()
+		public Form()
 		{
 			InitializeComponent();
 			FormClosing += Form1_Close;

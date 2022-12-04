@@ -42,14 +42,14 @@ namespace FacepunchCommitsMonitor
 			{
 				await CheckForNewCommits(false);
 			};
-			CheckTimer.Interval = Form1.IntervalTime;
+			CheckTimer.Interval = Form.IntervalTime;
 			CheckTimer.Enabled = true;
 
 			// Default generated code to create the form.
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+			Application.Run(new Form());
 		}
 
 		/// <summary>
@@ -58,13 +58,13 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private static string SelectGameCategory(string repository)
 		{
-			if (repository.Contains("Garrys") && Form1.Repositories["Garry's Mod"])
+			if (repository.Contains("Garrys") && Form.Repositories["Garry's Mod"])
 				return "Garry's Mod";
 
-			if (repository.Contains("rust") && Form1.Repositories["Rust"])
+			if (repository.Contains("rust") && Form.Repositories["Rust"])
 				return "Rust";
 
-			if (repository.Contains("sbox") && Form1.Repositories["Sandbox"])
+			if (repository.Contains("sbox") && Form.Repositories["Sandbox"])
 				return "Sandbox";
 
 			return "N/A";
@@ -111,7 +111,7 @@ namespace FacepunchCommitsMonitor
 						{
 							var userData = item.GetProperty("user");
 
-							await Form1.CreateToastNotification(new Commit
+							await Form.CreateToastNotification(new Commit
 							{
 								category = gameCategory,
 								identifier = stringIdentifier,

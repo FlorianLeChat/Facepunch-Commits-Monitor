@@ -1,13 +1,6 @@
-using System;
-using System.IO;
-using System.Net.Http;
 using System.Diagnostics;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Uwp.Notifications;
-
 using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor

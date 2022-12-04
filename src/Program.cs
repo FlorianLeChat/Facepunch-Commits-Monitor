@@ -1,10 +1,4 @@
-using System;
-using System.Net.Http;
 using System.Text.Json;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor
@@ -11,6 +12,27 @@ namespace FacepunchCommitsMonitor
 		public string branch;
 		public string author;
 		public string avatar;
+
+		public Commit(string identifier, string category, string repository, string branch, string author, string avatar)
+		{
+			// Incremented number from the beginning assigned to the commit (generated on the Facepunch side).
+			this.identifier = identifier;
+
+			// "Nice" game name associated with the commit (e.g. "Garry's Mod", "Rust", "S&Box"). 
+			this.category = category;
+
+			// GitHub repository name attached with the commit (e.g. "rust_reboot").
+			this.repository = repository;
+
+			// Branch involved in the GitHub repository of the commit (e.g. "x86-64").
+			this.branch = branch;
+
+			// Author of the GitHub commit (e.g. "Garry Newman").
+			this.author = author;
+
+			// URL to the avatar of the commit author on GitHub (e.g. "https://files.facepunch.com/web/avatar/151-51815457.png").
+			this.avatar = avatar;
+		}
 	}
 
 	internal class Program
@@ -20,7 +42,7 @@ namespace FacepunchCommitsMonitor
 
 		private static uint firstIdentifier;
 		private static readonly HttpClient client = new();
-		private static readonly List<string> readedIDs = new();
+		private static readonly List<string> readedIds = new();
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -101,21 +123,22 @@ namespace FacepunchCommitsMonitor
 							continue;
 
 						// Checks if the identifier has not already been "read".
-						if (!readedIDs.Contains(stringIdentifier) && numberIdentifier > firstIdentifier)
+						if (!readedIds.Contains(stringIdentifier) && numberIdentifier > firstIdentifier)
 						{
 							var userData = item.GetProperty("user");
 
-							await Form.CreateToastNotification(new Commit
-							{
-								category = gameCategory,
-								identifier = stringIdentifier,
-								repository = gameRepository,
-								branch = item.GetProperty("branch").ToString(),
-								author = userData.GetProperty("name").ToString(),
-								avatar = userData.GetProperty("avatar").ToString()
-							});
+							await Form.CreateToastNotification(
+								new Commit(
+									stringIdentifier,
+									gameCategory,
+									gameRepository,
+									item.GetProperty("branch").ToString(),
+									userData.GetProperty("name").ToString(),
+									userData.GetProperty("avatar").ToString()
+								)
+							);
 
-							readedIDs.Add(stringIdentifier);
+							readedIds.Add(stringIdentifier);
 						}
 					}
 				}

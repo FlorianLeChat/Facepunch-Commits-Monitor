@@ -110,7 +110,7 @@ namespace FacepunchCommitsMonitor
 		{
 			if (element.InvokeRequired)
 			{
-				_ = element.BeginInvoke((Action)delegate { SafeInvoke(element, callback); });
+				_ = element.BeginInvoke(delegate { SafeInvoke(element, callback); });
 			}
 			else
 			{

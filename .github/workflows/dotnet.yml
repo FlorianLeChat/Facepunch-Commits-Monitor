@@ -25,3 +25,14 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish Windows (arm64/x64)
+      run: |
+        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-x64 --nologo --self-contained
+        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-arm64 --nologo --self-contained
+    - name: Upload Windows Builds
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-builds
+        path: |
+          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0/win-x64/publish/
+          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0/win-arm64/publish/

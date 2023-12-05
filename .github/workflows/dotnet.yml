@@ -2,8 +2,11 @@ name: .NET
 
 on:
   push:
-    paths:
-      - "**.cs"
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: 0 6 * * 1
 
 jobs:
   build:
@@ -31,6 +34,7 @@ jobs:
         dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-arm64 --nologo --self-contained
     - name: Upload Windows Builds
       uses: actions/upload-artifact@v3
+      if: github.event_name == 'push'
       with:
         name: windows-builds
         path: |

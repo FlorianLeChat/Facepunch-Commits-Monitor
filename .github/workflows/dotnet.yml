@@ -38,5 +38,5 @@ jobs:
       with:
         name: windows-builds-dotnet-${{ matrix.dotnet }}
         path: |
-          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0/win-x64/publish/
-          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0/win-arm64/publish/
+          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0-windows10.0.22000.0/win-x64/publish/
+          /home/runner/work/Facepunch-Commits-Monitor/Facepunch-Commits-Monitor/src/bin/Release/net8.0-windows10.0.22000.0/win-arm64/publish/

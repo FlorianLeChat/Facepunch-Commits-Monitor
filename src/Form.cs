@@ -125,7 +125,7 @@ namespace FacepunchCommitsMonitor
 			}
 		}
 
-		private void ActionTimer_Tick(object sender, EventArgs e)
+		private void ActionTimer_Tick(object ?sender, EventArgs e)
 		{
 			// Remaining time text
 			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Monitor.StartTime)).TotalSeconds);
@@ -172,7 +172,7 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Executes the uninstallation system when the program closes.
 		/// </summary>
-		private void Form1_Close(object sender, FormClosingEventArgs e)
+		private void Form1_Close(object ?sender, FormClosingEventArgs e)
 		{
 			// Firstly, the notifications and data associated to the program.
 			if (cleanupOnShutDown)

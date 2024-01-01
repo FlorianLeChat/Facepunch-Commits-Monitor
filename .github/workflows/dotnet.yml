@@ -19,7 +19,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ matrix.dotnet }}
     - name: Restore dependencies
@@ -33,7 +33,7 @@ jobs:
         dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-x64 --nologo --self-contained
         dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-arm64 --nologo --self-contained
     - name: Upload Windows Builds
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: github.event_name == 'push'
       with:
         name: windows-builds-dotnet-${{ matrix.dotnet }}

@@ -1,3 +1,4 @@
+using FacepunchCommitsMonitor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FacepunchCommitsMonitorTests;

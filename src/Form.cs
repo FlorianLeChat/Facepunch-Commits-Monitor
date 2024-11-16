@@ -7,8 +7,7 @@ namespace FacepunchCommitsMonitor
 {
 	public partial class Form : System.Windows.Forms.Form
 	{
-		public static double IntervalTime { get; set; } = 180000;
-		public static Dictionary<string, bool> Repositories { get; set; } = new()
+		private static Dictionary<string, bool> repositories = new()
 		{
 			["Garry's Mod"] = false,
 			["Rust"] = false,
@@ -16,6 +15,7 @@ namespace FacepunchCommitsMonitor
 		};
 
 		private bool cleanupOnShutDown;
+		private static double intervalTime = 180000;
 		private static readonly HttpClient client = new();
 		private readonly Timer interfaceUpdateTimer = new();
 
@@ -46,6 +46,32 @@ namespace FacepunchCommitsMonitor
 					OpenURL(args["url"]);
 				}
 			};
+		}
+
+		/// <summary>
+		/// Defines and retrieves game repositories to be checked
+		/// </summary>
+		public static void SetRepositories(Dictionary<string, bool> value)
+		{
+			repositories = value;
+		}
+
+		public static Dictionary<string, bool> GetRepositories()
+		{
+			return repositories;
+		}
+
+		/// <summary>
+		/// Defines and retrieves the time interval between two checks
+		/// </summary>
+		public static void SetIntervalTime(double value)
+		{
+			intervalTime = value;
+		}
+
+		public static double GetIntervalTime()
+		{
+			return intervalTime;
 		}
 
 		/// <summary>
@@ -112,11 +138,11 @@ namespace FacepunchCommitsMonitor
 		/// <summary>
 		/// Updates UI elements with values from the internal logic.
 		/// </summary>
-		private void SafeInvoke(Control element, Action callback)
+		private static void SafeInvoke(Control element, Action callback)
 		{
 			if (element.InvokeRequired)
 			{
-				_ = element.BeginInvoke(delegate { SafeInvoke(element, callback); });
+				_ = element.BeginInvoke(delegate { Form.SafeInvoke(element, callback); });
 			}
 			else
 			{
@@ -128,17 +154,17 @@ namespace FacepunchCommitsMonitor
 		private void ActionTimer_Tick(object ?sender, EventArgs e)
 		{
 			// Remaining time text
-			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(IntervalTime) - (DateTime.Now - Monitor.StartTime)).TotalSeconds);
+			var remainingTime = Math.Round((TimeSpan.FromMilliseconds(GetIntervalTime()) - (DateTime.Now - Monitor.StartTime)).TotalSeconds);
 
-			SafeInvoke(label6, new Action(() =>
+			Form.SafeInvoke(label6, new Action(() =>
 			{
 				label6.Text = FindNumbers().Replace(label6.Text, Math.Max(remainingTime, 0).ToString());
 			}));
 
 			// Remaining time progress bar
-			SafeInvoke(progressBar1, new Action(() =>
+			Form.SafeInvoke(progressBar1, new Action(() =>
 			{
-				progressBar1.Value = Math.Clamp((int)(100 * remainingTime / (IntervalTime / 1000)), 0, 100);
+				progressBar1.Value = Math.Clamp((int)(100 * remainingTime / (GetIntervalTime() / 1000)), 0, 100);
 			}));
 		}
 
@@ -208,13 +234,13 @@ namespace FacepunchCommitsMonitor
 			switch (args.Index)
 			{
 				case 0:
-					Repositories["Garry's Mod"] = state;
+					GetRepositories()["Garry's Mod"] = state;
 					break;
 				case 1:
-					Repositories["Rust"] = state;
+					GetRepositories()["Rust"] = state;
 					break;
 				case 2:
-					Repositories["Sandbox"] = state;
+					GetRepositories()["Sandbox"] = state;
 					break;
 				default:
 					break;
@@ -238,10 +264,10 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
 		{
-			IntervalTime = (double)numericUpDown1.Value * 1000;
+			SetIntervalTime((double)numericUpDown1.Value * 1000);
 
 			Monitor.StartTime = DateTime.Now;
-			Monitor.CheckTimer.Interval = IntervalTime;
+			Monitor.CheckTimer.Interval = GetIntervalTime();
 		}
 	}
 }

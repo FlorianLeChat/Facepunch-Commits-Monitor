@@ -1,5 +1,4 @@
 using System.Text.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 using Timer = System.Timers.Timer;
 
 namespace FacepunchCommitsMonitor

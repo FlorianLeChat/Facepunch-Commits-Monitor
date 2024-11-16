@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FacepunchCommitsMonitor.Tests;
+namespace FacepunchCommitsMonitorTests;
 
 [TestClass]
 public class MonitorTests

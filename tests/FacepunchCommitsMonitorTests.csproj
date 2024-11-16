@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows10.0.22000.0</TargetFramework> <!-- Windows 11 -->
+		<TargetFrameworks>net8.0-windows10.0.22000.0;net9.0-windows10.0.22000.0</TargetFrameworks> <!-- Windows 11 -->
 		<TargetPlatformMinVersion>10.0.19044.3693</TargetPlatformMinVersion> <!-- Windows 10 version 21H2 (November 2021 Update) -->
 		<Platforms>win-arm64;x64</Platforms>
 		<Nullable>enable</Nullable>

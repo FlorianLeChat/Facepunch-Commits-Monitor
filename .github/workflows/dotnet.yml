@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        dotnet: [ "6.x", "7.x", "8.x" ]
+        framework: [ "net8.0", "net9.0" ]
       fail-fast: false
     steps:
     - name: Checkout code
@@ -21,22 +21,22 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ matrix.dotnet }}
+        dotnet-version: "9.x"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -f ${{ matrix.framework }}
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal -f ${{ matrix.framework }}
     - name: Publish Windows (arm64/x64)
       run: |
-        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-x64 --nologo --self-contained
-        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -r win-arm64 --nologo --self-contained
+        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -f ${{ matrix.framework }} -r win-x64 --nologo --self-contained
+        dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -f ${{ matrix.framework }} -r win-arm64 --nologo --self-contained
     - name: Upload Windows Builds
       uses: actions/upload-artifact@v4
       if: github.event_name == 'push'
       with:
-        name: windows-builds-dotnet-${{ matrix.dotnet }}
+        name: windows-builds-${{ matrix.framework }}
         path: |
-          ${{ github.workspace }}/src/bin/Release/net8.0-windows10.0.22000.0/win-x64/publish/
-          ${{ github.workspace }}/src/bin/Release/net8.0-windows10.0.22000.0/win-arm64/publish/
+          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}-windows10.0.22000.0/win-x64/publish/
+          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}-windows10.0.22000.0/win-arm64/publish/

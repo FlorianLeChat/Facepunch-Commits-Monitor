@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        framework: [ "net8.0", "net9.0" ]
+        framework: [ "net8.0-windows10.0.22621.0", "net9.0-windows10.0.22621.0" ]
       fail-fast: false
     steps:
     - name: Checkout code
@@ -38,5 +38,5 @@ jobs:
       with:
         name: windows-builds-${{ matrix.framework }}
         path: |
-          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}-windows10.0.22000.0/win-x64/publish/
-          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}-windows10.0.22000.0/win-arm64/publish/
+          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}/win-x64/publish/
+          ${{ github.workspace }}/src/bin/Release/${{ matrix.framework }}/win-arm64/publish/

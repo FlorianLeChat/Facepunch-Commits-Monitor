@@ -63,13 +63,15 @@ namespace FacepunchCommitsMonitor
 		/// </summary>
 		public static string SelectGameCategory(string repository)
 		{
-			if (repository.Contains("Garrys") && Form.GetRepositories()["Garry's Mod"])
+			var loweredName = repository.ToLower();
+
+			if (loweredName.Contains("garrys") && Form.GetRepositories()["Garry's Mod"])
 				return "Garry's Mod";
 
-			if (repository.Contains("rust") && Form.GetRepositories()["Rust"])
+			if (loweredName.Contains("rust") && Form.GetRepositories()["Rust"])
 				return "Rust";
 
-			if (repository.Contains("sbox") && Form.GetRepositories()["Sandbox"])
+			if (loweredName.Contains("sbox") && Form.GetRepositories()["Sandbox"])
 				return "S&Box";
 
 			return "N/A";

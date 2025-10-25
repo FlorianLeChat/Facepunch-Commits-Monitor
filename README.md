@@ -1,5 +1,8 @@
 # 📊 Facepunch Commits Monitor
 
+![C#](https://custom-icon-badges.demolab.com/badge/C%23-%23239120.svg?logo=cshrp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=white)
+
 After the release of my very first **[real](https://github.com/FlorianLeChat/SteamCollectionDownloadSizeCalculator)** application in C#, I decided once again to convert one of my old Lua scripts made for Garry's Mod into an application usable outside this environment.
 
 The purpose of the script was to periodically check the commits made on the Garry's Mod GitHub repository and to notify players who wanted to see the changes. This script using this time a user interface which now fulfills this purpose while adding the tracking of Rust and the next Facepunch game: S&Box!

@@ -38,7 +38,7 @@ jobs:
         dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -f ${{ matrix.framework }} -r win-x64 --nologo --self-contained
         dotnet publish src/FacepunchCommitsMonitor.csproj -c Release -f ${{ matrix.framework }} -r win-arm64 --nologo --self-contained
     - name: Upload Windows Builds
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       if: github.event_name == 'push'
       with:
         name: windows-builds-${{ matrix.framework }}
